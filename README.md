@@ -47,5 +47,6 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `wordduel/` | **Go** 단어 타이핑 레이스 (봇과 속도 대결, best-of-N) | `cd wordduel && go build -o wordduel.exe . && ./wordduel.exe 5 45` |
 | `statblock/` | **chain**: dice(stat count) -> json2csv -> csv2md (주사위 굴림 표) | `python statblock/statblock.py --demo` |
 | `synth/` | **Node** 칩튠 WAV 생성기 (square-wave arpeggio, 의존성 0) | `node synth/synth.js 7` |
+| `namefreq/` | **chain**: namegen -> freq -> csv2md (이름 글자 빈도표) | `python namefreq/namefreq.py --demo` |
 
 ponytail-made: shortest thing that runs, self-checks where logic is non-trivial.

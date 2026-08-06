@@ -52,5 +52,6 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `roomletters/` | **chain**: dungeonmap -> freq -> csv2md (방 이름 글자 빈도표) | `python roomletters/roomletters.py --demo` |
 | `pong/` | **C** 터미널 퐁 (W/S + 방향키, AI 우패들, ANSI) | `cd pong && run.bat` |
 | `haikucount/` | **chain**: haiku -> freq -> csv2md (하이쿠 단어 빈도표) | `python haikucount/haikucount.py --demo` |
+| `life-go/` | **Go** Conway's Game of Life (ANSI, blinker 자체검증) | `cd life-go && go build -o life-go.exe . && ./life-go.exe 40 30 14` |
 
 ponytail-made: shortest thing that runs, self-checks where logic is non-trivial.

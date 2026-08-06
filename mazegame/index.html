@@ -22,7 +22,7 @@
 <body>
   <h1>MAZEGAME</h1>
   <div id="wrap"><canvas id="c" width="480" height="480"></canvas></div>
-  <div id="hud">화살표/ WASD로 이동. 노란 보석을 다 주워서 녹색 출구로 — 분홍 적을 피해라(닿으면 HP -1).</div>
+  <div id="hud">화살표/ WASD로 이동. 노란 보석을 다 주워서 녹색 출구로 — 분홍 적을 피해라(닿으면 HP -1). 청록 물약은 HP +1.</div>
   <div>
     <button id="new">New maze (N)</button>
     <button id="auto">Auto-solve (A)</button>
@@ -53,13 +53,16 @@ function genMaze(){
 }
 
 let g, px, py, gems, got, solving=false, path=null;
-let monsters=[], hp=3, state='play'; // Deep mode: multiple monsters + combat
+let monsters=[], hp=3, state='play', turn=0, potions=[], drank=new Set(); // Deep: combat + potions
 
 function placeGems(){
   const cells=[];
   for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++) if(g[y][x]==='.') cells.push([x,y]);
   gems = cells.slice().sort(()=>Math.random()-0.5).slice(0,4);
   got = new Set();
+  // Deep: place 2 potions on random open cells (not the start)
+  potions = cells.filter(([x,y])=>!(x===1&&y===1)).sort(()=>Math.random()-0.5).slice(0,2);
+  drank = new Set();
 }
 
 // Deep mode: one BFS step of a monster at (mx,my) toward the player. Pure.
@@ -94,8 +97,8 @@ function newGame(){
   open.sort((a,b)=>(Math.abs(b[0]-px)+Math.abs(b[1]-py))-(Math.abs(a[0]-px)+Math.abs(a[1]-py)));
   const n = Math.min(3, open.length-1);
   monsters = open.slice(0,n).map(([x,y])=>({x,y}));
-  hp=3; state='play';
-  hud.textContent = `HP ${hp} · 보석 ${got.size}/${gems.length} — 적 ${monsters.length}마리를 피해 보석+출구로`;
+  hp=3; state='play'; turn=0;
+  hud.textContent = `HP ${hp} · 보석 ${got.size}/${gems.length} · 턴 ${turn} · 물약 ${drank.size}/${potions.length} — 적 ${monsters.length}마리를 피해 보석+출구로`;
   draw();
 }
 
@@ -113,6 +116,9 @@ function draw(){
   ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--gem');
   for(const [x,y] of gems) if(!got.has(x+','+y)) ctx.beginPath(),
     ctx.arc(x*CELL+CELL/2,y*CELL+CELL/2,CELL*0.3,0,7), ctx.fill();
+  // potions (Deep) — cyan squares
+  ctx.fillStyle='#7dcfff';
+  for(const [x,y] of (potions||[])) if(!drank.has(x+','+y)) ctx.fillRect(x*CELL+CELL*0.3,y*CELL+CELL*0.3,CELL*0.4,CELL*0.4);
   // monsters (Deep)
   if(state==='play'){
     ctx.fillStyle='#f7768e';
@@ -130,18 +136,20 @@ function move(dx,dy){
   if(solving||state!=='play') return;
   const nx=px+dx, ny=py+dy;
   if(nx<0||nx>=W||ny<0||ny>=H||g[ny][nx]==='#') return;
-  px=nx; py=ny;
+  px=nx; py=ny; turn++;
   const k=px+','+py;
   if(gems.some(([x,y])=>x+','+y===k)&&!got.has(k)){ got.add(k); }
+  // Deep: potion pickup restores 1 HP (cap 5)
+  if((potions||[]).some(([x,y])=>x+','+y===k)&&!drank.has(k)){ drank.add(k); hp=Math.min(5,hp+1); }
   // each monster acts after the player moves
   for(const m of monsters){
     const [sx,sy]=monsterStep(m.x,m.y);
     if(sx===px&&sy===py){ hp--; const far=openFarCell(); m.x=far[0]; m.y=far[1]; } // hit: lose hp, monster retreats
     else { m.x=sx; m.y=sy; }
   }
-  if(hp<=0){ state='dead'; hud.textContent=`☠ 게임 오버 — HP 0 (보석 ${got.size}/${gems.length})`; draw(); return; }
+  if(hp<=0){ state='dead'; hud.textContent=`☠ 게임 오버 — HP 0 (턴 ${turn}, 보석 ${got.size}/${gems.length})`; draw(); return; }
   if(px===W-2&&py===H-2&&got.size===gems.length){ state='win'; hud.textContent='★ 클리어! 모든 보석 + 출구 도달'; draw(); return; }
-  hud.textContent = `HP ${hp} · 보석 ${got.size}/${gems.length}`;
+  hud.textContent = `HP ${hp} · 보석 ${got.size}/${gems.length} · 턴 ${turn} · 물약 ${drank.size}/${potions.length}`;
   draw();
 }
 

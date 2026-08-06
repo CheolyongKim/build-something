@@ -30,7 +30,7 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `wordrank/` | **chain**: serve -> freq -> csv2md | `python wordrank/wordrank.py --demo` |
 | `rpsmarkov/` | **chain**: markov -> rps(--auto) -> go-ascii(--text) 봇 대전 승률 ASCII | `python rpsmarkov/rpsmarkov.py --demo` |
 | `summaries/` | 프로젝트 요약+유용성선별 HTML (인터랙티브) | `summaries/2026-08-06-projects-summary.html` |
-| `mazegame/` | **web + deep** 브라우저 미로 크롤러 (보석+몬스터 추격/전투+승리/게임오버) | `node serve/server.js 8140 mazegame` → open index.html |
+| `mazegame/` | **web + deep** 브라우저 미로 크롤러 (보석+몬스터 추격/전투+승리/게임오버, 물약+턴+HUD, headless self-check) | `node serve/server.js 8140 mazegame` → open index.html |
 | `go-tone/` | **Go** 절차적 멜로디 → WAV 합성 (의존성 0) | `cd go-tone && go build -o go-tone.exe . && ./go-tone.exe 7` |
 | `rain/` | **Go** 터미널 비 내리는 애니메이션 (ASCII, 의존성 0) | `cd rain && go build -o rain.exe . && ./rain.exe 30 40` |
 | `logline/` | **Rust** 무작위 영화 로그라인 생성기 (stdlib 0) | `cd logline && run.bat 5` (GNU 타깃) |
@@ -57,3 +57,5 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `quiz/` | **Rust** 터미널 산수 퀴즈 (stdin 정답 입력, 점수) | `cd quiz && run.bat 5` (GNU 타깃) |
 
 ponytail-made: shortest thing that runs, self-checks where logic is non-trivial.
+
+deep: mazegame — 브라우저 미로 크롤러. 진행: 3몬스터 BFS 추격+HP+승리/게임오버(기존) → Deep 추가: 물약(potion, HP+1, cap5) + 턴 카운터 + HUD 확장. headless-check.js로 100마젠 sol가능/보석4/몬스터추격/물약회복 자체검증. 코드 A/B/C 22+개, 언어 8종(Python/C#/Go/Rust/C/Java/Node/C++).

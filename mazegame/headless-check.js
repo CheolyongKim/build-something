@@ -22,7 +22,9 @@ const probe = `
 ;global.__t={genMaze,autoSolve,
 get g(){return g}, get gems(){return gems}, get got(){return got},
 get px(){return px}, get py(){return py}, get monsters(){return monsters},
-newGame, monsterStep, setMonsters(a){monsters=a;}, setPositions(a,b){px=a;py=b;}};`;
+get hp(){return hp}, get potions(){return potions}, get drank(){return drank},
+newGame, monsterStep, move, setMonsters(a){monsters=a;}, setPositions(a,b){px=a;py=b;},
+set hp(v){hp=v;}};`;
 
 try {
   eval(script + probe);
@@ -79,7 +81,29 @@ try {
     const hit = T.monsterStep(p[0], p[1]);
     if (!(hit[0]===p[0] && hit[1]===p[1])) errors.push("monster doesn't reach player on contact");
   }
-  if (!errors.length) console.log("mazegame_ok: 100 mazes solvable, 4 gems, multi-monster chases + contacts");
+  // Deep: potion pickup restores 1 HP (cap 5)
+  T.newGame();
+  if (T.potions.length !== 2) errors.push("potions != 2: " + T.potions.length);
+  // direct potion test: walk onto a potion cell from a neighbor
+  T.newGame();
+  const [px, py] = T.potions[0];
+  // find a walkable neighbor
+  const gP = T.g, PW = gP[0].length, PH = gP.length;
+  let nb = null;
+  for (const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+    const nx=px+dx, ny=py+dy;
+    if (nx>=0&&nx<PW&&ny>=0&&ny<PH&&gP[ny][nx]!=='#') { nb=[nx,ny]; break; }
+  }
+  if (!nb) errors.push("no neighbor for potion");
+  else {
+    T.setMonsters([]); T.hp = 1;
+    T.setPositions(nb[0], nb[1]);
+    const [dx,dy] = [px-nb[0], py-nb[1]];
+    T.move(dx, dy);
+    if (T.hp !== 2) errors.push(`potion did not restore HP (hp=${T.hp})`);
+    if (!T.drank.has(px+','+py)) errors.push("drank set missing potion");
+  }
+  if (!errors.length) console.log("mazegame_ok: 100 mazes solvable, 4 gems, multi-monster chases + contacts, potions restore HP");
   else { console.log("FAIL:", errors.slice(0,5)); process.exit(1); }
 } catch (e) {
   console.log("FAIL exception:", e.message); process.exit(1);

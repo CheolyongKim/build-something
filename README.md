@@ -55,6 +55,7 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `life-go/` | **Go** Conway's Game of Life (ANSI, blinker 자체검증) | `cd life-go && go build -o life-go.exe . && ./life-go.exe 40 30 14` |
 | `notetable/` | **chain**: go-tone(--notes) -> json2csv -> csv2md (박자별 음표 표) | `python notetable/notetable.py --demo` |
 | `quiz/` | **Rust** 터미널 산수 퀴즈 (stdin 정답 입력, 점수) | `cd quiz && run.bat 5` (GNU 타깃) |
+| `hangman-py/` | **free**: 터미널 행맨 (교수대 그림 + 마스크 로직, --demo) | `python hangman-py/hangman.py --demo` |
 
 ponytail-made: shortest thing that runs, self-checks where logic is non-trivial.
 

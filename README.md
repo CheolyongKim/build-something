@@ -30,7 +30,7 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `wordrank/` | **chain**: serve -> freq -> csv2md | `python wordrank/wordrank.py --demo` |
 | `crawlbeat/` | **chain**: dungeonmap -> sloc -> metro | `python crawlbeat/crawlbeat.py --demo` |
 | `summaries/` | 프로젝트 요약+유용성선별 HTML (인터랙티브) | `summaries/2026-08-06-projects-summary.html` |
-| `mazegame/` | **web** 브라우저 미로 크롤러 (화살표 이동+보석+자동경로) | `node serve/server.js 8140 mazegame` → open index.html |
+| `mazegame/` | **web + deep** 브라우저 미로 크롤러 (보석+몬스터 추격/전투+승리/게임오버) | `node serve/server.js 8140 mazegame` → open index.html |
 | `go-tone/` | **Go** 절차적 멜로디 → WAV 합성 (의존성 0) | `cd go-tone && go build -o go-tone.exe . && ./go-tone.exe 7` |
 
 ponytail-made: shortest thing that runs, self-checks where logic is non-trivial.

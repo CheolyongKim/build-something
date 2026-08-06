@@ -44,5 +44,6 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `tictactoe/` | **Go** 미니맥스 AI 틱택토 (플레이어 X, AI O 무패) | `cd tictactoe && go build -o tictactoe.exe . && ./tictactoe.exe` |
 | `mines/` | **C++** 터미널 지뢰찾기 (flood reveal, stdin 플레이) | `cd mines && run.bat 10 10 12` (g++ GNU) |
 | `melodyreport/` | **chain**: go-tone(--notes) -> freq -> csv2md (멜로디 음계 분포표) | `python melodyreport/melodyreport.py --demo` |
+| `wordduel/` | **Go** 단어 타이핑 레이스 (봇과 속도 대결, best-of-N) | `cd wordduel && go build -o wordduel.exe . && ./wordduel.exe 5 45` |
 
 ponytail-made: shortest thing that runs, self-checks where logic is non-trivial.

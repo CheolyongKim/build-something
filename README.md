@@ -58,7 +58,8 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `hangman-py/` | **free**: 터미널 행맨 (교수대 그림 + 마스크 로직, --demo) | `python hangman-py/hangman.py --demo` |
 | `jsonreport/` | **chain**: dice -> jsonfmt -> json2csv -> csv2md (JSON 검증 포함 주사위 표) | `python jsonreport/jsonreport.py --demo` |
 | `banner/` | **free**: 3x5 블록 폰트 배너 (C, A-Z, MinGW) | `cd banner && run.bat HI` |
-| `battlelog/` | **chain**: rps(--auto) -> jsonfmt -> json2csv -> csv2md (라운드별 승부표) | `python battlelog/battlelog.py --demo` |
+| `battlelog/` | **chain**: rps(--auto) -> jsonfmt -> json2csv -> csv2md (round-by-round) | `python battlelog/battlelog.py --demo` |
+| `connect4/` | **free**: connect4 (terminal 2p, gravity+4-win, --demo) | `python connect4/connect4.py --demo` |
 
 ponytail-made: shortest thing that runs, self-checks where logic is non-trivial.
 

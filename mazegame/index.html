@@ -36,11 +36,11 @@ const hud = document.getElementById('hud');
 function genMaze(){
   const g = Array.from({length:H}, ()=>Array(W).fill('#'));
   const visited = Array.from({length:CH}, ()=>Array(CW).fill(false));
-  const order = [];
-  const dirs = [[0,-1],[0,1],[-1,0],[1,0]];
   function carve(cx,cy){
     visited[cy][cx]=true; g[2*cy+1][2*cx+1]='.';
-    for(const [dx,dy] of dirs.sort(()=>Math.random()-0.5)){
+    const shuf=[[0,-1],[0,1],[-1,0],[1,0]];
+    for(let i=shuf.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[shuf[i],shuf[j]]=[shuf[j],shuf[i]];}
+    for(const [dx,dy] of shuf){
       const nx=cx+dx, ny=cy+dy;
       if(nx>=0&&nx<CW&&ny>=0&&ny<CH&&!visited[ny][nx]){
         g[2*cy+1+dy][2*cx+1+dx]='.'; carve(nx,ny);

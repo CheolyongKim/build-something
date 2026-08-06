@@ -23,7 +23,7 @@ try {
   eval(script + probe);
   const T = global.__t;
   // run several mazes, each must be solvable end->start
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 100; i++) {
     T.newGame();
     const g = T.g, gems = T.gems;
     if (g[g.length-2][g[0].length-2] !== ".") errors.push("exit not open @"+i);

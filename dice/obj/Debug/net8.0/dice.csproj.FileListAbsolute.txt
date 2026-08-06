@@ -12,3 +12,4 @@ C:\personal\build-something\dice\obj\Debug\net8.0\refint\dice.dll
 C:\personal\build-something\dice\obj\Debug\net8.0\dice.pdb
 C:\personal\build-something\dice\obj\Debug\net8.0\dice.genruntimeconfig.cache
 C:\personal\build-something\dice\obj\Debug\net8.0\ref\dice.dll
+C:\personal\build-something\dice\obj\Debug\net8.0\dice.sourcelink.json

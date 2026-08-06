@@ -1,0 +1,8 @@
+[package]
+name = "logline"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "logline"
+path = "src/main.rs"

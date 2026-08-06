@@ -7,3 +7,4 @@ go-ascii/go-ascii
 rel.json
 rustup-init.exe
 mingw.7z
+target/

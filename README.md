@@ -33,6 +33,6 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `mazegame/` | **web + deep** 브라우저 미로 크롤러 (보석+몬스터 추격/전투+승리/게임오버) | `node serve/server.js 8140 mazegame` → open index.html |
 | `go-tone/` | **Go** 절차적 멜로디 → WAV 합성 (의존성 0) | `cd go-tone && go build -o go-tone.exe . && ./go-tone.exe 7` |
 | `rain/` | **Go** 터미널 비 내리는 애니메이션 (ASCII, 의존성 0) | `cd rain && go build -o rain.exe . && ./rain.exe 30 40` |
-| `loreforge/` | **chain**: lorem -> markov -> freq (산문 생성→리믹스→빈도분석) | `python loreforge/loreforge.py --demo` |
+| `logline/` | **Rust** 무작위 영화 로그라인 생성기 (stdlib 0) | `cd logline && run.bat 5` (GNU 타깃) |
 
 ponytail-made: shortest thing that runs, self-checks where logic is non-trivial.

@@ -1,0 +1,4 @@
+# build artifacts
+*.wav
+*.exe
+go-tone/go-tone

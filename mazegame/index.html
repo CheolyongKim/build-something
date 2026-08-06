@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MAZEGAME — escape the grid</title>
+<style>
+  :root{--bg:#0b0d12;--wall:#1b2030;--floor:#cdd6e8;--hero:#7aa2f7;--goal:#9ece6a;--gem:#e0af68}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:#e6e6e6;font:16px/1.5 system-ui,sans-serif;
+       display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:16px}
+  h1{font-size:1.4rem;margin:8px 0;letter-spacing:.04em}
+  #wrap{position:relative}
+  canvas{background:var(--bg);border:1px solid #262b36;border-radius:10px;image-rendering:pixelated}
+  #hud{margin-top:10px;color:#9aa4b2;font-size:14px;min-height:1.4em}
+  button{background:#161922;border:1px solid #262b36;color:#e6e6e6;border-radius:8px;
+         padding:8px 14px;cursor:pointer;font:inherit;margin:6px 4px}
+  button:hover{border-color:#7aa2f7}
+  kbd{background:#0b0d12;border:1px solid #262b36;border-radius:5px;padding:1px 6px;font:12px monospace}
+</style>
+</head>
+<body>
+  <h1>MAZEGAME</h1>
+  <div id="wrap"><canvas id="c" width="480" height="480"></canvas></div>
+  <div id="hud">화살표/ WASD로 이동. 노란 보석을 다 주워서 녹색 출구로 가라.</div>
+  <div>
+    <button id="new">New maze (N)</button>
+    <button id="auto">Auto-solve (A)</button>
+  </div>
+<script>
+// ---- recursive-backtracker maze (same algo as maze/Program.cs, ported to JS) ----
+const CW = 12, CH = 8, W = 2*CW+1, H = 2*CH+1, CELL = 480 / W;
+const canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+const hud = document.getElementById('hud');
+
+function genMaze(){
+  const g = Array.from({length:H}, ()=>Array(W).fill('#'));
+  const visited = Array.from({length:CH}, ()=>Array(CW).fill(false));
+  const order = [];
+  const dirs = [[0,-1],[0,1],[-1,0],[1,0]];
+  function carve(cx,cy){
+    visited[cy][cx]=true; g[2*cy+1][2*cx+1]='.';
+    for(const [dx,dy] of dirs.sort(()=>Math.random()-0.5)){
+      const nx=cx+dx, ny=cy+dy;
+      if(nx>=0&&nx<CW&&ny>=0&&ny<CH&&!visited[ny][nx]){
+        g[2*cy+1+dy][2*cx+1+dx]='.'; carve(nx,ny);
+      }
+    }
+  }
+  carve(0,0);
+  g[H-2][W-2]='.';
+  return g;
+}
+
+let g, px, py, gems, got, solving=false, path=null;
+
+function placeGems(){
+  const cells=[];
+  for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++) if(g[y][x]==='.') cells.push([x,y]);
+  gems = cells.slice().sort(()=>Math.random()-0.5).slice(0,4);
+  got = new Set();
+}
+
+function newGame(){
+  g = genMaze(); px=1; py=1; solving=false; path=null; placeGems();
+  hud.textContent = `보석 ${got.size}/${gems.length} — 출구는 우측 하단`;
+  draw();
+}
+
+function draw(){
+  ctx.clearRect(0,0,480,480);
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+    if(g[y][x]==='#') ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--wall');
+    else ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--floor');
+    ctx.fillRect(x*CELL,y*CELL,CELL,CELL);
+  }
+  // exit
+  ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--goal');
+  ctx.fillRect((W-2)*CELL,(H-2)*CELL,CELL,CELL);
+  // gems
+  ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--gem');
+  for(const [x,y] of gems) if(!got.has(x+','+y)) ctx.beginPath(),
+    ctx.arc(x*CELL+CELL/2,y*CELL+CELL/2,CELL*0.3,0,7), ctx.fill();
+  // hero
+  ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--hero');
+  ctx.beginPath(); ctx.arc(px*CELL+CELL/2,py*CELL+CELL/2,CELL*0.35,0,7); ctx.fill();
+  if(solving&&path){ctx.strokeStyle='rgba(122,162,247,.4)';ctx.lineWidth=2;ctx.beginPath();
+    path.forEach(([x,y],i)=>i?ctx.lineTo(x*CELL+CELL/2,y*CELL+CELL/2):ctx.moveTo(x*CELL+CELL/2,y*CELL+CELL/2));ctx.stroke();}
+}
+
+function move(dx,dy){
+  if(solving) return;
+  const nx=px+dx, ny=py+dy;
+  if(nx<0||nx>=W||ny<0||ny>=H||g[ny][nx]==='#') return;
+  px=nx; py=ny;
+  const k=px+','+py;
+  if(gems.some(([x,y])=>x+','+y===k)&&!got.has(k)){ got.add(k); hud.textContent=`보석 ${got.size}/${gems.length}`; }
+  if(px===W-2&&py===H-2){
+    hud.textContent = got.size===gems.length ? '★ 클리어! 모든 보석 획득' : '출구 도착 — 보석을 다 주워야 해';
+  }
+  draw();
+}
+
+document.addEventListener('keydown',e=>{
+  const m={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],
+           w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]}[e.key];
+  if(m){e.preventDefault();move(...m);}
+  if(e.key==='n'||e.key==='N') newGame();
+  if(e.key==='A'||e.key==='a') autoSolve();
+});
+
+// BFS solver -> draws the path (the "developable" combat-AI seed)
+function autoSolve(){
+  const seen=Array.from({length:H},()=>Array(W).fill(false));
+  const prev={}; const q=[[1,1]]; seen[1][1]=true;
+  while(q.length){const [x,y]=q.shift();
+    if(x===W-2&&y===H-2) break;
+    for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+      const nx=x+dx,ny=y+dy;
+      if(nx>=0&&nx<W&&ny>=0&&ny<H&&g[ny][nx]!=='#'&&!seen[ny][nx]){
+        seen[ny][nx]=true; prev[nx+','+ny]=[x,y]; q.push([nx,ny]);
+      }
+    }
+  }
+  path=[]; let cur=[W-2,H-2];
+  while(prev[cur[0]+','+cur[1]]){path.unshift(cur); cur=prev[cur[0]+','+cur[1]];}
+  path.unshift([1,1]); solving=true; draw();
+  hud.textContent=`자동 경로: ${path.length}칸 (보석 ${got.size}/${gems.length})`;
+}
+
+document.getElementById('new').onclick=newGame;
+document.getElementById('auto').onclick=autoSolve;
+newGame();
+</script>
+</body>
+</html>

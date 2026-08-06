@@ -40,5 +40,6 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `haiku/` | **free**: 음절 태깅 기반 5-7-5 하이쿠 생성기 (Python) | `python haiku/haiku.py --demo` |
 | `partyroster/` | **chain**: namegen + dice -> json2csv -> csv2md (파티 표) | `python partyroster/partyroster.py --demo` |
 | `clock/` | **Java** 터미널 아날로그 시계 (ASCII 페이스, H/M/S 바늘) | `cd clock && run.bat` |
+| `wordconjure/` | **chain**: hangman단어 -> markov -> freq -> csv2md (판타지 단어 빈도표) | `python wordconjure/wordconjure.py --demo` |
 
 ponytail-made: shortest thing that runs, self-checks where logic is non-trivial.

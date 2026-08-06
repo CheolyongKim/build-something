@@ -53,7 +53,7 @@ function genMaze(){
 }
 
 let g, px, py, gems, got, solving=false, path=null;
-let mx, my, hp=3, state='play'; // Deep mode: monster + combat
+let monsters=[], hp=3, state='play'; // Deep mode: multiple monsters + combat
 
 function placeGems(){
   const cells=[];
@@ -62,9 +62,9 @@ function placeGems(){
   got = new Set();
 }
 
-// Deep mode: one BFS step of the monster toward (tx,ty). Pure (globals read-only).
-// Returns the next [x,y] for the monster, or its current cell if unreachable.
-function monsterStep(){
+// Deep mode: one BFS step of a monster at (mx,my) toward the player. Pure.
+// Returns the next [x,y]; if already on the player, returns the player cell.
+function monsterStep(mx,my){
   if(state!=='play') return [mx,my];
   const seen=Array.from({length:H},()=>Array(W).fill(false));
   const prev={}; const q=[[mx,my]]; seen[my][mx]=true;
@@ -77,7 +77,6 @@ function monsterStep(){
       }
     }
   }
-  // walk one step back from player along the BFS tree
   let cur=[px,py]; let step=[mx,my];
   while(prev[cur[0]+','+cur[1]]){
     const p=prev[cur[0]+','+cur[1]];
@@ -89,11 +88,14 @@ function monsterStep(){
 
 function newGame(){
   g = genMaze(); px=1; py=1; solving=false; path=null; placeGems();
-  // monster spawns far from player
-  const far = [...g].flatMap((row,y)=>row.map((c,x)=>c==='.'?[x,y]:null).filter(Boolean))
-    .sort((a,b)=>(Math.abs(b[0]-px)+Math.abs(b[1]-py))-(Math.abs(a[0]-px)+Math.abs(a[1]-py)))[0];
-  [mx,my]=far||[W-2,H-2]; hp=3; state='play';
-  hud.textContent = `HP ${hp} · 보석 ${got.size}/${gems.length} — 적을 피해 보석을 다 주워 출구로`;
+  // monsters spawn at the farthest open cells from the player
+  const open = [];
+  for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++) if(g[y][x]==='.') open.push([x,y]);
+  open.sort((a,b)=>(Math.abs(b[0]-px)+Math.abs(b[1]-py))-(Math.abs(a[0]-px)+Math.abs(a[1]-py)));
+  const n = Math.min(3, open.length-1);
+  monsters = open.slice(0,n).map(([x,y])=>({x,y}));
+  hp=3; state='play';
+  hud.textContent = `HP ${hp} · 보석 ${got.size}/${gems.length} — 적 ${monsters.length}마리를 피해 보석+출구로`;
   draw();
 }
 
@@ -111,10 +113,11 @@ function draw(){
   ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--gem');
   for(const [x,y] of gems) if(!got.has(x+','+y)) ctx.beginPath(),
     ctx.arc(x*CELL+CELL/2,y*CELL+CELL/2,CELL*0.3,0,7), ctx.fill();
-  // monster (Deep)
+  // monsters (Deep)
   if(state==='play'){
     ctx.fillStyle='#f7768e';
-    ctx.beginPath(); ctx.arc(mx*CELL+CELL/2,my*CELL+CELL/2,CELL*0.32,0,7); ctx.fill();
+    for(const m of monsters) ctx.beginPath(),
+      ctx.arc(m.x*CELL+CELL/2,m.y*CELL+CELL/2,CELL*0.32,0,7), ctx.fill();
   }
   // hero
   ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--hero');
@@ -130,15 +133,24 @@ function move(dx,dy){
   px=nx; py=ny;
   const k=px+','+py;
   if(gems.some(([x,y])=>x+','+y===k)&&!got.has(k)){ got.add(k); }
-  // monster acts after the player moves
-  const [sx,sy]=monsterStep();
-  // contact check (before/after move)
-  if(sx===px&&sy===py){ hp--; [mx,my]=[W-2,H-2]; } // hit: lose hp, monster retreats to far corner
-  else { mx=sx; my=sy; }
+  // each monster acts after the player moves
+  for(const m of monsters){
+    const [sx,sy]=monsterStep(m.x,m.y);
+    if(sx===px&&sy===py){ hp--; const far=openFarCell(); m.x=far[0]; m.y=far[1]; } // hit: lose hp, monster retreats
+    else { m.x=sx; m.y=sy; }
+  }
   if(hp<=0){ state='dead'; hud.textContent=`☠ 게임 오버 — HP 0 (보석 ${got.size}/${gems.length})`; draw(); return; }
   if(px===W-2&&py===H-2&&got.size===gems.length){ state='win'; hud.textContent='★ 클리어! 모든 보석 + 출구 도달'; draw(); return; }
   hud.textContent = `HP ${hp} · 보석 ${got.size}/${gems.length}`;
   draw();
+}
+
+// farthest open cell from player (monster respawn point)
+function openFarCell(){
+  const open=[];
+  for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++) if(g[y][x]==='.') open.push([x,y]);
+  open.sort((a,b)=>(Math.abs(b[0]-px)+Math.abs(b[1]-py))-(Math.abs(a[0]-px)+Math.abs(a[1]-py)));
+  return open[0];
 }
 
 document.addEventListener('keydown',e=>{

@@ -1,0 +1,14 @@
+C:\personal\build-something\dice\bin\Debug\net8.0\dice.exe
+C:\personal\build-something\dice\bin\Debug\net8.0\dice.deps.json
+C:\personal\build-something\dice\bin\Debug\net8.0\dice.runtimeconfig.json
+C:\personal\build-something\dice\bin\Debug\net8.0\dice.dll
+C:\personal\build-something\dice\bin\Debug\net8.0\dice.pdb
+C:\personal\build-something\dice\obj\Debug\net8.0\dice.GeneratedMSBuildEditorConfig.editorconfig
+C:\personal\build-something\dice\obj\Debug\net8.0\dice.AssemblyInfoInputs.cache
+C:\personal\build-something\dice\obj\Debug\net8.0\dice.AssemblyInfo.cs
+C:\personal\build-something\dice\obj\Debug\net8.0\dice.csproj.CoreCompileInputs.cache
+C:\personal\build-something\dice\obj\Debug\net8.0\dice.dll
+C:\personal\build-something\dice\obj\Debug\net8.0\refint\dice.dll
+C:\personal\build-something\dice\obj\Debug\net8.0\dice.pdb
+C:\personal\build-something\dice\obj\Debug\net8.0\dice.genruntimeconfig.cache
+C:\personal\build-something\dice\obj\Debug\net8.0\ref\dice.dll

@@ -1,0 +1,14 @@
+C:\personal\build-something\sudoku\bin\Debug\net8.0\sudoku.exe
+C:\personal\build-something\sudoku\bin\Debug\net8.0\sudoku.deps.json
+C:\personal\build-something\sudoku\bin\Debug\net8.0\sudoku.runtimeconfig.json
+C:\personal\build-something\sudoku\bin\Debug\net8.0\sudoku.dll
+C:\personal\build-something\sudoku\bin\Debug\net8.0\sudoku.pdb
+C:\personal\build-something\sudoku\obj\Debug\net8.0\sudoku.GeneratedMSBuildEditorConfig.editorconfig
+C:\personal\build-something\sudoku\obj\Debug\net8.0\sudoku.AssemblyInfoInputs.cache
+C:\personal\build-something\sudoku\obj\Debug\net8.0\sudoku.AssemblyInfo.cs
+C:\personal\build-something\sudoku\obj\Debug\net8.0\sudoku.csproj.CoreCompileInputs.cache
+C:\personal\build-something\sudoku\obj\Debug\net8.0\sudoku.dll
+C:\personal\build-something\sudoku\obj\Debug\net8.0\refint\sudoku.dll
+C:\personal\build-something\sudoku\obj\Debug\net8.0\sudoku.pdb
+C:\personal\build-something\sudoku\obj\Debug\net8.0\sudoku.genruntimeconfig.cache
+C:\personal\build-something\sudoku\obj\Debug\net8.0\ref\sudoku.dll

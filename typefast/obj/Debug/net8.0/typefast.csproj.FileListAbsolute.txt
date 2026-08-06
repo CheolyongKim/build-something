@@ -1,0 +1,14 @@
+C:\personal\build-something\typefast\bin\Debug\net8.0\typefast.exe
+C:\personal\build-something\typefast\bin\Debug\net8.0\typefast.deps.json
+C:\personal\build-something\typefast\bin\Debug\net8.0\typefast.runtimeconfig.json
+C:\personal\build-something\typefast\bin\Debug\net8.0\typefast.dll
+C:\personal\build-something\typefast\bin\Debug\net8.0\typefast.pdb
+C:\personal\build-something\typefast\obj\Debug\net8.0\typefast.GeneratedMSBuildEditorConfig.editorconfig
+C:\personal\build-something\typefast\obj\Debug\net8.0\typefast.AssemblyInfoInputs.cache
+C:\personal\build-something\typefast\obj\Debug\net8.0\typefast.AssemblyInfo.cs
+C:\personal\build-something\typefast\obj\Debug\net8.0\typefast.csproj.CoreCompileInputs.cache
+C:\personal\build-something\typefast\obj\Debug\net8.0\typefast.dll
+C:\personal\build-something\typefast\obj\Debug\net8.0\refint\typefast.dll
+C:\personal\build-something\typefast\obj\Debug\net8.0\typefast.pdb
+C:\personal\build-something\typefast\obj\Debug\net8.0\typefast.genruntimeconfig.cache
+C:\personal\build-something\typefast\obj\Debug\net8.0\ref\typefast.dll

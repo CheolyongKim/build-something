@@ -1,0 +1,14 @@
+C:\personal\build-something\hangman\bin\Debug\net8.0\hangman.exe
+C:\personal\build-something\hangman\bin\Debug\net8.0\hangman.deps.json
+C:\personal\build-something\hangman\bin\Debug\net8.0\hangman.runtimeconfig.json
+C:\personal\build-something\hangman\bin\Debug\net8.0\hangman.dll
+C:\personal\build-something\hangman\bin\Debug\net8.0\hangman.pdb
+C:\personal\build-something\hangman\obj\Debug\net8.0\hangman.GeneratedMSBuildEditorConfig.editorconfig
+C:\personal\build-something\hangman\obj\Debug\net8.0\hangman.AssemblyInfoInputs.cache
+C:\personal\build-something\hangman\obj\Debug\net8.0\hangman.AssemblyInfo.cs
+C:\personal\build-something\hangman\obj\Debug\net8.0\hangman.csproj.CoreCompileInputs.cache
+C:\personal\build-something\hangman\obj\Debug\net8.0\hangman.dll
+C:\personal\build-something\hangman\obj\Debug\net8.0\refint\hangman.dll
+C:\personal\build-something\hangman\obj\Debug\net8.0\hangman.pdb
+C:\personal\build-something\hangman\obj\Debug\net8.0\hangman.genruntimeconfig.cache
+C:\personal\build-something\hangman\obj\Debug\net8.0\ref\hangman.dll

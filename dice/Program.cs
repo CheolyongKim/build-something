@@ -31,10 +31,13 @@ switch (args[0])
 {
     case "roll": Console.WriteLine(D(args[1])); break;
     case "stat":
-        for (var i = 0; i < 6; i++)
+        int count = 6;
+        var cidx = Array.FindIndex(args, a => a == "count");
+        if (cidx >= 0 && cidx + 1 < args.Length) int.TryParse(args[cidx + 1], out count);
+        for (var i = 0; i < count; i++)
         {
             var rolls = Enumerable.Range(0, 4).Select(_ => rnd.Next(1, 7)).OrderBy(x => x).Skip(1).ToArray();
-            Console.WriteLine($"{rolls.Sum()}  ({string.Join("+", rolls)} drop {rolls.Min()})");
+            Console.WriteLine(rolls.Sum() + "  (" + string.Join("+", rolls) + " drop " + rolls.Min() + ")");
         }
         break;
     case "adv": Console.WriteLine(Adv(args[1])); break;

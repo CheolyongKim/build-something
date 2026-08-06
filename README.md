@@ -51,5 +51,6 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `bounce/` | **Rust** 터미널 바운스 애니메이션 (ANSI, @가 벽에서 튕김) | `cd bounce && run.bat 200 40 12` (GNU 타깃) |
 | `roomletters/` | **chain**: dungeonmap -> freq -> csv2md (방 이름 글자 빈도표) | `python roomletters/roomletters.py --demo` |
 | `pong/` | **C** 터미널 퐁 (W/S + 방향키, AI 우패들, ANSI) | `cd pong && run.bat` |
+| `haikucount/` | **chain**: haiku -> freq -> csv2md (하이쿠 단어 빈도표) | `python haikucount/haikucount.py --demo` |
 
 ponytail-made: shortest thing that runs, self-checks where logic is non-trivial.

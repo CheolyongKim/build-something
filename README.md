@@ -45,5 +45,6 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `mines/` | **C++** 터미널 지뢰찾기 (flood reveal, stdin 플레이) | `cd mines && run.bat 10 10 12` (g++ GNU) |
 | `melodyreport/` | **chain**: go-tone(--notes) -> freq -> csv2md (멜로디 음계 분포표) | `python melodyreport/melodyreport.py --demo` |
 | `wordduel/` | **Go** 단어 타이핑 레이스 (봇과 속도 대결, best-of-N) | `cd wordduel && go build -o wordduel.exe . && ./wordduel.exe 5 45` |
+| `statblock/` | **chain**: dice(stat count) -> json2csv -> csv2md (주사위 굴림 표) | `python statblock/statblock.py --demo` |
 
 ponytail-made: shortest thing that runs, self-checks where logic is non-trivial.

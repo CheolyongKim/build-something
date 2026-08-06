@@ -12,6 +12,12 @@ Usage: melodyreport.py [seed]   (default 7)
 import os, re, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+GOTONE_EXE = os.path.join(ROOT, "go-tone", "go-tone.exe")
+
+def ensure_gotone():
+    if not os.path.exists(GOTONE_EXE):
+        subprocess.run(["go", "build", "-o", GOTONE_EXE, "."],
+                       cwd=os.path.join(ROOT, "go-tone"), check=True)
 
 def run(cmd, input_text=None):
     return subprocess.run(cmd, cwd=ROOT, input=input_text, capture_output=True,
@@ -30,6 +36,7 @@ def report(seed):
     return run([sys.executable, "csv2md/csv2md.py"], input_text=csv)
 
 def main():
+    ensure_gotone()
     if "--demo" in sys.argv:
         md = report(7)
         assert "degree" in md, "FAIL: missing header"

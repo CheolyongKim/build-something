@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -22,6 +23,12 @@ var scale = []int{0, 3, 5, 7, 10, 12, 15}
 func freq(semi int) float64 { return 110 * math.Pow(2, float64(semi)/12) }
 
 func main() {
+	notesFlag := false
+	for _, a := range os.Args[1:] {
+		if a == "--notes" {
+			notesFlag = true
+		}
+	}
 	seed := 7
 	if len(os.Args) > 1 {
 		fmt.Sscanf(os.Args[1], "%d", &seed)
@@ -36,6 +43,18 @@ func main() {
 	buf := make([]float32, n)
 	beat := sampleRate * 60 / bpm
 	totalBeats := seconds * bpm / 60
+
+	if notesFlag {
+		// print the scale-index sequence instead of synthesizing audio
+		idxs := make([]int, 0, totalBeats)
+		r := rng
+		for i := 0; i < totalBeats; i++ {
+			r = r*1103515245 + 12345
+			idxs = append(idxs, int(uint(r)/65536%uint(len(scale))))
+		}
+		fmt.Println(strings.TrimSpace(strings.Trim(fmt.Sprint(idxs), "[]")))
+		return
+	}
 
 	for i := 0; i < totalBeats; i++ {
 		// deterministic-ish pick from seed

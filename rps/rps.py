@@ -21,6 +21,28 @@ if "--demo" in sys.argv:
     print("counters_most_frequent=ok", file=sys.stderr)
     sys.exit(0)
 
+if "--auto" in sys.argv:
+    # bot vs bot self-play: adaptive counter-bot (B) vs slightly-noisy counter-bot (A)
+    n = 200
+    for a in sys.argv:
+        if a.isdigit(): n = int(a)
+    a_hist, b_hist = [], []
+    aw = bw = 0
+    seq = []
+    for _ in range(n):
+        b = bot_move(a_hist)                 # B counters A's habit
+        # A counters B's habit, but with 20% noise so the loop isn't degenerate
+        if b_hist and random.random() < 0.8:
+            a = "rps"[( "rps".index(bot_move(b_hist)) + 1) % 3]
+        else:
+            a = random.choice("rps")
+        a_hist.append(a); b_hist.append(b)
+        if b == WIN[a]: aw += 1; seq.append("W")
+        elif a == WIN[b]: bw += 1; seq.append("L")
+        else: seq.append("T")
+    print("".join(seq))
+    sys.exit(0)
+
 n = int(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1].isdigit() else 5
 hist = []; pw = bw = 0
 for _ in range(n):

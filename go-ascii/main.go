@@ -10,6 +10,7 @@ import (
 	"image/color"
 	"image/jpeg"
 	"image/png"
+	"io"
 	"math"
 	"os"
 	"strings"
@@ -81,8 +82,18 @@ func main() {
 		fmt.Println("go-ascii_ok: gradient->ascii has shading")
 		return
 	}
+	// --text: render an already-ASCII grid from stdin as-is (chain use)
+	if len(os.Args) > 1 && os.Args[1] == "--text" {
+		data, _ := os.ReadFile(os.Stdin.Name())
+		if len(data) == 0 {
+			b, _ := io.ReadAll(os.Stdin)
+			data = b
+		}
+		fmt.Print(string(data))
+		return
+	}
 	if len(os.Args) < 2 {
-		fmt.Println("usage: go-ascii <image> [width]   (or --demo)")
+		fmt.Println("usage: go-ascii <image> [width]   (or --demo | --text)")
 		return
 	}
 	f, err := os.Open(os.Args[1])

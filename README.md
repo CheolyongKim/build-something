@@ -28,7 +28,7 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `party/` | **chain**: passgen -> dungeonmap -> csv2md (lock codes) | `python party/party.py --demo` |
 | `json2csv/` | JSON array -> CSV (node, zero-dep) | `echo '[...]' \| node json2csv/json2csv.js --demo` |
 | `wordrank/` | **chain**: serve -> freq -> csv2md | `python wordrank/wordrank.py --demo` |
-| `charactersheet/` | **chain**: namegen -> dice -> lorem -> RPG 캐릭터 시트(md) | `python charactersheet/charactersheet.py --demo` |
+| `rpsmarkov/` | **chain**: markov -> rps(--auto) -> go-ascii(--text) 봇 대전 승률 ASCII | `python rpsmarkov/rpsmarkov.py --demo` |
 | `summaries/` | 프로젝트 요약+유용성선별 HTML (인터랙티브) | `summaries/2026-08-06-projects-summary.html` |
 | `mazegame/` | **web + deep** 브라우저 미로 크롤러 (보석+몬스터 추격/전투+승리/게임오버) | `node serve/server.js 8140 mazegame` → open index.html |
 | `go-tone/` | **Go** 절차적 멜로디 → WAV 합성 (의존성 0) | `cd go-tone && go build -o go-tone.exe . && ./go-tone.exe 7` |

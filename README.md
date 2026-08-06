@@ -41,5 +41,6 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `partyroster/` | **chain**: namegen + dice -> json2csv -> csv2md (파티 표) | `python partyroster/partyroster.py --demo` |
 | `clock/` | **Java** 터미널 아날로그 시계 (ASCII 페이스, H/M/S 바늘) | `cd clock && run.bat` |
 | `wordconjure/` | **chain**: hangman단어 -> markov -> freq -> csv2md (판타지 단어 빈도표) | `python wordconjure/wordconjure.py --demo` |
+| `tictactoe/` | **Go** 미니맥스 AI 틱택토 (플레이어 X, AI O 무패) | `cd tictactoe && go build -o tictactoe.exe . && ./tictactoe.exe` |
 
 ponytail-made: shortest thing that runs, self-checks where logic is non-trivial.

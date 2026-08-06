@@ -2,3 +2,8 @@
 *.wav
 *.exe
 go-tone/go-tone
+rs-trace/target/
+go-ascii/go-ascii
+rel.json
+rustup-init.exe
+mingw.7z

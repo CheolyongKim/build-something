@@ -1,0 +1,8 @@
+[package]
+name = "rs-trace"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "rs-trace"
+path = "src/main.rs"

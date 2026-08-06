@@ -60,6 +60,7 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `banner/` | **free**: 3x5 블록 폰트 배너 (C, A-Z, MinGW) | `cd banner && run.bat HI` |
 | `battlelog/` | **chain**: rps(--auto) -> jsonfmt -> json2csv -> csv2md (round-by-round) | `python battlelog/battlelog.py --demo` |
 | `connect4/` | **free**: connect4 (terminal 2p, gravity+4-win, --demo) | `python connect4/connect4.py --demo` |
+| `morse/` | **free**: Go 텍스트->모스 부호 변환 (A-Z0-9, --demo) | `cd morse && go build -o morse.exe . && ./morse.exe "HI"` |
 
 ponytail-made: shortest thing that runs, self-checks where logic is non-trivial.
 

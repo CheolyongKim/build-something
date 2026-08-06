@@ -37,5 +37,6 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `botbattle/` | **chain**: rps(--auto) -> freq -> csv2md (봇 대전 W/L/T 집계) | `python botbattle/botbattle.py --demo` |
 | `snake/` | **C** 터미널 스네이크 게임 (MinGW gcc, ANSI 렌더) | `cd snake && run.bat` (방향키/WASD) |
 | `dungeonreport/` | **chain**: dungeon -> tile맵 -> freq -> csv2md (던전 벽/바닥 비율 표) | `python dungeonreport/dungeonreport.py --demo` |
+| `haiku/` | **free**: 음절 태깅 기반 5-7-5 하이쿠 생성기 (Python) | `python haiku/haiku.py --demo` |
 
 ponytail-made: shortest thing that runs, self-checks where logic is non-trivial.

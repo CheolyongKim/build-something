@@ -50,5 +50,6 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `namefreq/` | **chain**: namegen -> freq -> csv2md (이름 글자 빈도표) | `python namefreq/namefreq.py --demo` |
 | `bounce/` | **Rust** 터미널 바운스 애니메이션 (ANSI, @가 벽에서 튕김) | `cd bounce && run.bat 200 40 12` (GNU 타깃) |
 | `roomletters/` | **chain**: dungeonmap -> freq -> csv2md (방 이름 글자 빈도표) | `python roomletters/roomletters.py --demo` |
+| `pong/` | **C** 터미널 퐁 (W/S + 방향키, AI 우패들, ANSI) | `cd pong && run.bat` |
 
 ponytail-made: shortest thing that runs, self-checks where logic is non-trivial.

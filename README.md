@@ -39,5 +39,6 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `dungeonreport/` | **chain**: dungeon -> tile맵 -> freq -> csv2md (던전 벽/바닥 비율 표) | `python dungeonreport/dungeonreport.py --demo` |
 | `haiku/` | **free**: 음절 태깅 기반 5-7-5 하이쿠 생성기 (Python) | `python haiku/haiku.py --demo` |
 | `partyroster/` | **chain**: namegen + dice -> json2csv -> csv2md (파티 표) | `python partyroster/partyroster.py --demo` |
+| `clock/` | **Java** 터미널 아날로그 시계 (ASCII 페이스, H/M/S 바늘) | `cd clock && run.bat` |
 
 ponytail-made: shortest thing that runs, self-checks where logic is non-trivial.

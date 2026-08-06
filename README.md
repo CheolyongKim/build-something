@@ -32,5 +32,6 @@ Mode A = free builds; Mode B = chained pipelines reusing existing tools (see DIR
 | `summaries/` | 프로젝트 요약+유용성선별 HTML (인터랙티브) | `summaries/2026-08-06-projects-summary.html` |
 | `mazegame/` | **web + deep** 브라우저 미로 크롤러 (보석+몬스터 추격/전투+승리/게임오버) | `node serve/server.js 8140 mazegame` → open index.html |
 | `go-tone/` | **Go** 절차적 멜로디 → WAV 합성 (의존성 0) | `cd go-tone && go build -o go-tone.exe . && ./go-tone.exe 7` |
+| `rlif/` | **Rust** 터미널 생존 로그라이크 (hunt/eat/rest/trade, HP/배고픔/골드) | `cargo build --release --target x86_64-pc-windows-gnu && ./target/x86_64-pc-windows-gnu/release/rlif.exe --demo` |
 
 ponytail-made: shortest thing that runs, self-checks where logic is non-trivial.
